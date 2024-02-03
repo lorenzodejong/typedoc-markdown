@@ -1,10 +1,10 @@
-export interface LayoutOptions {
+export interface StackOptions {
   spacing?: number;
 }
 
-export const layout = (
+export const stack = (
   content: Array<string | null | undefined>,
-  { spacing = 1 }: LayoutOptions = {}
+  { spacing = 1 }: StackOptions = {}
 ) =>
   content
     .filter((item) => item !== null && item !== undefined)

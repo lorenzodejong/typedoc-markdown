@@ -1,3 +1,6 @@
+import type { Application } from "@typedoc-markdown/core";
+import * as path from "path";
+import { register as registerTsNode } from "ts-node";
 import {
   PageEvent,
   ProjectReflection,
@@ -5,18 +8,12 @@ import {
   RenderTemplate,
   Renderer,
   Theme,
-  UrlMapping,
 } from "typedoc";
-import * as path from "path";
-import { register as registerTsNode } from "ts-node";
-import type { Application } from "@typedoc-markdown/core";
 
 // Using `ts-node` registration for runtime compilation
-// eslint-disable-next-line no-undef
 registerTsNode();
 
 const loadUserApp = (configPath: string) => {
-  // eslint-disable-next-line no-undef
   return require(path.resolve(configPath)).default as Application;
 };
 
@@ -30,24 +27,18 @@ export class TypedocMarkdownTheme extends Theme {
     this.userApp = loadUserApp(configPath);
   }
 
-  getOption = <T>(key: string) => {
+  getOption = <T>(key: string): T => {
     return this.application.options.getValue(key) as T;
   };
 
   render = (
     page: PageEvent<Reflection>,
     template: RenderTemplate<PageEvent<Reflection>>
-  ) => {
-    console.log(page, template);
-
-    return "";
+  ): string => {
+    return template(page) as string;
   };
 
   getUrls(project: ProjectReflection) {
-    this.userApp.render(project);
-
-    const mapping: UrlMapping<Reflection>[] = [];
-
-    return mapping;
+    return this.userApp.collectPageUrls(project);
   }
 }

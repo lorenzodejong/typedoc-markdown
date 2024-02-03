@@ -2,17 +2,17 @@ import { Application } from "@typedoc-markdown/core";
 import { match, P } from "ts-pattern";
 import { ReflectionKind } from "typedoc";
 
-import { classPage } from "./pages/class";
+import { classPage } from "./pages/construct";
 
 const app = new Application({
-  pageMatcher: (node) => {
+  pageComponentResolver: (node) => {
     return match(node)
       .with(
         {
           kind: ReflectionKind.Class,
           variant: "declaration",
         },
-        (node) => classPage.bind(node)
+        () => classPage
       )
       .with(P.any, () => null)
       .exhaustive();

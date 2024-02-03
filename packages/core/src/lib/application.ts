@@ -1,43 +1,45 @@
-import { ProjectReflection } from "typedoc";
+import type { ProjectReflection, Reflection, UrlMapping } from "typedoc";
 
-import type { BoundComponent } from "./component";
-import type { ComponentRenderContext, SomeReflection } from "./types";
+import type { Component } from "./component";
+import type { SomeReflection } from "./types";
 
-export type Matcher = (
-  // eslint-disable-next-line no-unused-vars
-  node: SomeReflection
-) => BoundComponent<any> | null;
+export type Matcher = (node: SomeReflection) => Component<any> | null;
 
 export interface ApplicationProps {
-  pageMatcher: Matcher;
+  pageComponentResolver: Matcher;
 }
 
 export class Application {
-  protected pageMatcher: Matcher;
+  protected pageComponentResolver: Matcher;
 
   constructor(props: ApplicationProps) {
-    this.pageMatcher = props.pageMatcher;
+    this.pageComponentResolver = props.pageComponentResolver;
   }
 
-  private async renderRecursively(
-    node: SomeReflection,
-    context: ComponentRenderContext
-  ) {
-    const binding = this.pageMatcher(node);
+  public collectPageUrls(project: ProjectReflection): UrlMapping<Reflection>[] {
+    const collect = (
+      node: SomeReflection,
+      result: UrlMapping<Reflection>[] = []
+    ): UrlMapping<Reflection>[] => {
+      const component = this.pageComponentResolver(node);
 
-    if (binding) {
-      const result = await binding.render(context);
-      console.log("result", result);
-    }
-
-    if ((!binding || binding.component.props.recurse) && "children" in node) {
-      for await (const child of node.children || []) {
-        await this.renderRecursively(child, context);
+      if (component) {
+        result.push({
+          model: node,
+          template: () => component.render(node, { project }),
+          url: component.props.outputPath(node),
+        });
       }
-    }
-  }
 
-  public async render(project: ProjectReflection) {
-    await this.renderRecursively(project, { project: project });
+      if ("children" in node) {
+        for (const child of node.children || []) {
+          return collect(child, result);
+        }
+      }
+
+      return result;
+    };
+
+    return collect(project);
   }
 }

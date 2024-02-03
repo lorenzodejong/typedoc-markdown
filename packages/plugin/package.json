@@ -1,0 +1,29 @@
+{
+  "name": "@typedoc-markdown/plugin",
+  "version": "0.0.1",
+  "description": "",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "dev": "npm run build -- --watch",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@typedoc-markdown/core": "*",
+    "ts-node": "^10.9.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "tsup": "^8.0.1",
+    "typedoc": "^0.25.7",
+    "typescript": "^5.3.3"
+  },
+  "peerDependencies": {
+    "typedoc": "^0.25.7"
+  }
+}

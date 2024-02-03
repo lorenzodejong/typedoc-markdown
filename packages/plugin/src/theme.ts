@@ -17,13 +17,13 @@ const loadUserApp = (configPath: string) => {
   return require(path.resolve(configPath)).default as Application;
 };
 
-export class TypedocMarkdownTheme extends Theme {
+export class TypedocRendererTheme extends Theme {
   protected userApp: Application;
 
   constructor(renderer: Renderer) {
     super(renderer);
 
-    const configPath = this.getOption<string>("configPath");
+    const configPath = this.getOption<string>("rendererEntryPoint");
     this.userApp = loadUserApp(configPath);
   }
 

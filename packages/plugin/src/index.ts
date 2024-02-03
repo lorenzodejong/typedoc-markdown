@@ -1,18 +1,18 @@
 import { Application, ParameterType } from "typedoc";
-import { MarkdownThemeOptionsReader } from "./options-reader";
-import { TypedocMarkdownTheme } from "./theme";
+import { TypedocRendererThemeOptionsReader } from "./options-reader";
+import { TypedocRendererTheme } from "./theme";
 import { THEME_NAME } from "./constants";
 
-export { TypedocMarkdownTheme } from "./theme";
+export { TypedocRendererTheme } from "./theme";
 
 export function load(app: Application) {
-  app.renderer.defineTheme(THEME_NAME, TypedocMarkdownTheme);
-  app.options.addReader(new MarkdownThemeOptionsReader());
+  app.renderer.defineTheme(THEME_NAME, TypedocRendererTheme);
+  app.options.addReader(new TypedocRendererThemeOptionsReader());
 
   app.options.addDeclaration({
-    help: "[Markdown Plugin] Do not render page title.",
-    name: "configPath",
+    help: "[Typedoc renderer Plugin] Entry point to the module which exports the Application instance from @typedoc-renderer/core.",
+    name: "rendererEntryPoint",
     type: ParameterType.String,
-    defaultValue: "./typedoc-renderer",
+    defaultValue: "./typedoc",
   });
 }

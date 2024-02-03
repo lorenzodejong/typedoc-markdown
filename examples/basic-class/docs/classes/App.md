@@ -20,3 +20,10 @@ class SomeStack extends Stack {
 
 new SomeStack(stack, 'some-stack');
 ```
+
+
+## Constructor
+
+```ts
+new App(props)
+```

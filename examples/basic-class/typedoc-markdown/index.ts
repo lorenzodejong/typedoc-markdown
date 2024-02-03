@@ -2,7 +2,7 @@ import { Application } from "@typedoc-markdown/core";
 import { match, P } from "ts-pattern";
 import { ReflectionKind } from "typedoc";
 
-import { classPage } from "./pages/construct";
+import { classPage } from "./pages/class";
 
 const app = new Application({
   pageComponentResolver: (node) => {

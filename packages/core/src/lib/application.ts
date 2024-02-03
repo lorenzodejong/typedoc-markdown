@@ -1,45 +1,67 @@
 import type { ProjectReflection, Reflection, UrlMapping } from "typedoc";
 
 import type { Component } from "./component";
-import type { SomeReflection } from "./types";
+import type { ComponentRenderContext, SomeReflection } from "./types";
 
-export type Matcher = (node: SomeReflection) => Component<any> | null;
+export type Matcher = (model: SomeReflection) => Component<any> | null;
 
 export interface ApplicationProps {
   pageComponentResolver: Matcher;
 }
 
 export class Application {
+  protected collectedUrlMappingByModelId: Record<
+    string,
+    UrlMapping<Reflection>
+  >;
   protected pageComponentResolver: Matcher;
 
   constructor(props: ApplicationProps) {
+    this.collectedUrlMappingByModelId = {};
+
     this.pageComponentResolver = props.pageComponentResolver;
   }
 
-  public collectPageUrls(project: ProjectReflection): UrlMapping<Reflection>[] {
+  private createContext = (): ComponentRenderContext => ({
+    getUrlMappingForModel: (model: SomeReflection) =>
+      this.collectedUrlMappingByModelId[model.id] || null,
+  });
+
+  public collectPageUrls = (
+    project: ProjectReflection
+  ): UrlMapping<Reflection>[] => {
+    const context = this.createContext();
+
     const collect = (
-      node: SomeReflection,
+      model: SomeReflection,
       result: UrlMapping<Reflection>[] = []
     ): UrlMapping<Reflection>[] => {
-      const component = this.pageComponentResolver(node);
+      const component = this.pageComponentResolver(model);
 
       if (component) {
-        result.push({
-          model: node,
-          template: () => component.render(node, { project }),
-          url: component.props.outputPath(node),
-        });
+        const urlMapping: UrlMapping<Reflection> = {
+          model: model,
+          template: (event) => component.render(model, event, context),
+          url: component.props.outputPath(model),
+        };
+
+        this.collectedUrlMappingByModelId[model.id] = urlMapping;
+        result.push(urlMapping);
       }
 
-      if ("children" in node) {
-        for (const child of node.children || []) {
-          return collect(child, result);
+      if ("children" in model) {
+        let collected: UrlMapping<Reflection>[] = [];
+
+        for (const child of model.children || []) {
+          collected = [...collected, ...collect(child, result)];
         }
+
+        return collected;
       }
 
       return result;
     };
 
     return collect(project);
-  }
+  };
 }

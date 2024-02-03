@@ -4,6 +4,6 @@
     "outDir": "dist",
     "types": ["node"]
   },
-  "include": ["src", "generate.ts"],
+  "include": ["src", "typedoc-markdown", "generate.ts"],
   "exclude": ["node_modules", "dist"]
 }

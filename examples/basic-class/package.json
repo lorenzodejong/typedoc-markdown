@@ -4,19 +4,20 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build-docs": "typedoc --plugin ../../packages/plugin --out docs src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@typedoc-markdown/composer": "*",
-    "@typedoc-markdown/core": "*",
-    "ts-pattern": "^5.0.6",
-    "typedoc": "^0.25.7"
+    "ts-pattern": "^5.0.6"
   },
   "devDependencies": {
+    "@typedoc-markdown/composer": "*",
+    "@typedoc-markdown/core": "*",
     "@types/node": "^20.10.6",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "typedoc": "^0.25.7"
   }
 }

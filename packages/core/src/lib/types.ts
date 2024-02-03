@@ -3,13 +3,11 @@ import {
   ParameterReflection,
   ProjectReflection,
   ReferenceReflection,
+  Reflection,
   SignatureReflection,
   TypeParameterReflection,
+  UrlMapping,
 } from "typedoc";
-
-export interface ComponentRenderContext {
-  project: ProjectReflection;
-}
 
 export type SomeReflection =
   | DeclarationReflection
@@ -18,3 +16,9 @@ export type SomeReflection =
   | ReferenceReflection
   | SignatureReflection
   | TypeParameterReflection;
+
+export interface ComponentRenderContext {
+  getUrlMappingForModel: (
+    model: SomeReflection
+  ) => UrlMapping<Reflection> | null;
+}

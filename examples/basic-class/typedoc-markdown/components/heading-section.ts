@@ -2,14 +2,17 @@ import { DeclarationReflection } from "typedoc";
 import { M } from "@typedoc-markdown/composer";
 
 export interface HeadingSectionProps {
-  node: DeclarationReflection;
+  model: DeclarationReflection;
 }
 
-export const HeadingSection = ({ node }: HeadingSectionProps) => {
-  return [
-    M.h1(node.name),
-    node.comment
-      ? M.p(node.comment.summary.map((s) => s.text).join(" "))
-      : null,
-  ];
+export const HeadingSection = ({ model }: HeadingSectionProps) => {
+  return M.stack(
+    [
+      M.h1(model.name),
+      model.comment
+        ? M.p(model.comment.summary.map((s) => s.text).join(" "))
+        : null,
+    ],
+    { spacing: 2 }
+  );
 };

@@ -5,6 +5,8 @@ import { link } from "./lib/link";
 import { ol, ul } from "./lib/list";
 import { p } from "./lib/text";
 
+export { StackDirection } from "./lib/stack";
+
 export const M = {
   code,
   codeBlock,

@@ -1,18 +1,27 @@
+import { PageEvent, Reflection } from "typedoc";
 import type { ComponentRenderContext, SomeReflection } from "./types";
 
-export interface ComponentProps<Node extends SomeReflection> {
-  outputPath: (node: Node) => string;
-  render: (node: Node, context: ComponentRenderContext) => string;
+export interface ComponentProps<Model extends SomeReflection> {
+  outputPath: (model: Model) => string;
+  render: (
+    model: Model,
+    event: PageEvent<Reflection>,
+    context: ComponentRenderContext
+  ) => string;
 }
 
-export class Component<Node extends SomeReflection> {
-  public props: ComponentProps<Node>;
+export class Component<Model extends SomeReflection> {
+  public props: ComponentProps<Model>;
 
-  constructor(props: ComponentProps<Node>) {
+  constructor(props: ComponentProps<Model>) {
     this.props = props;
   }
 
-  public render = (node: Node, context: ComponentRenderContext) => {
-    return this.props.render(node, context);
+  public render = (
+    model: Model,
+    event: PageEvent<Reflection>,
+    context: ComponentRenderContext
+  ) => {
+    return this.props.render(model, event, context);
   };
 }

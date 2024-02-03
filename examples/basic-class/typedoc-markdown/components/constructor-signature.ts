@@ -1,4 +1,4 @@
-import { M, StackDirection } from "@typedoc-markdown/composer";
+import { M, StackDirection } from "@typedoc-renderer/md-composer";
 import { SignatureReflection } from "typedoc";
 
 export interface ConstructorSignatureProps {

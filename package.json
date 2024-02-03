@@ -1,5 +1,5 @@
 {
-  "name": "typedoc-markdown",
+  "name": "typedoc-renderer",
   "private": true,
   "scripts": {
     "build": "turbo build",

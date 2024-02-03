@@ -1,5 +1,5 @@
 import { ProjectReflection } from "typedoc";
-import { SomeReflection } from "@typedoc-markdown/core";
+import { SomeReflection } from "@typedoc-renderer/core";
 
 export const getSymbol = (
   project: ProjectReflection,

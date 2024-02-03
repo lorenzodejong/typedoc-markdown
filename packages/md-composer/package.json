@@ -1,5 +1,5 @@
 {
-  "name": "@typedoc-markdown/composer",
+  "name": "@typedoc-renderer/md-composer",
   "version": "0.0.1",
   "description": "",
   "main": "./dist/index.js",

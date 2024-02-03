@@ -13,6 +13,6 @@ export function load(app: Application) {
     help: "[Markdown Plugin] Do not render page title.",
     name: "configPath",
     type: ParameterType.String,
-    defaultValue: "./typedoc-markdown",
+    defaultValue: "./typedoc-renderer",
   });
 }

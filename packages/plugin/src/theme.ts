@@ -1,4 +1,4 @@
-import type { Application } from "@typedoc-markdown/core";
+import type { Application } from "@typedoc-renderer/core";
 import * as path from "path";
 import { register as registerTsNode } from "ts-node";
 import {

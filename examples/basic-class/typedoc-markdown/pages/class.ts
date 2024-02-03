@@ -1,5 +1,5 @@
-import { M } from "@typedoc-markdown/composer";
-import { Component } from "@typedoc-markdown/core";
+import { M } from "@typedoc-renderer/md-composer";
+import { Component } from "@typedoc-renderer/core";
 import * as path from "path";
 import { type DeclarationReflection } from "typedoc";
 

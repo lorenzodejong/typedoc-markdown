@@ -1,5 +1,5 @@
 import { DeclarationReflection } from "typedoc";
-import { M } from "@typedoc-markdown/composer";
+import { M } from "@typedoc-renderer/md-composer";
 
 export interface HeadingSectionProps {
   model: DeclarationReflection;

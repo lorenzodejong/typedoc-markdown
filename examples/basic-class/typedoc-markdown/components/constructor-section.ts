@@ -1,5 +1,5 @@
 import { DeclarationReflection, ReflectionKind } from "typedoc";
-import { M } from "@typedoc-markdown/composer";
+import { M } from "@typedoc-renderer/md-composer";
 import { ConstructorSignature } from "./constructor-signature";
 
 export interface ConstructorSectionProps {

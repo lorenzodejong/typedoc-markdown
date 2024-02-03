@@ -1,1 +1,1 @@
-export const THEME_NAME = "typedoc-markdown";
+export const THEME_NAME = "typedoc-renderer";

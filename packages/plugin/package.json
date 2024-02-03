@@ -1,5 +1,5 @@
 {
-  "name": "@typedoc-markdown/plugin",
+  "name": "@typedoc-renderer/plugin",
   "version": "0.0.1",
   "description": "",
   "main": "./dist/index.js",
@@ -14,7 +14,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@typedoc-markdown/core": "*",
+    "@typedoc-renderer/core": "*",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {

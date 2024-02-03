@@ -1,4 +1,4 @@
-import { Application } from "@typedoc-markdown/core";
+import { Application } from "@typedoc-renderer/core";
 import { match, P } from "ts-pattern";
 import { ReflectionKind } from "typedoc";
 
